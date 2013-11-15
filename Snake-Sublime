@@ -26,12 +26,9 @@
 				new THREE.CubeGeometry(
 					ecaille,ecaille,ecaille
 				),
-				/*new THREE.MeshBasicMaterial(
-					{ color:0x0000ff/*bleu*///, wireframe: false /*tout ceci est du JSON*/}
-				//)*/
-				new THREE.MeshLambertMaterial({
-        			map: THREE.ImageUtils.loadTexture('snakeScales.jpg')
-      			})
+				new THREE.MeshBasicMaterial(
+					{ color:0x0c3707/*vert*/, wireframe: false /*tout ceci est du JSON*/}
+				)
 			);
 			scene.add(mesh1);
 
@@ -39,12 +36,9 @@
 				new THREE.CubeGeometry(
 					ecaille,ecaille,ecaille
 				),
-				/*new THREE.MeshBasicMaterial(
-					{ color:0x0000ff, wireframe: false }
-				)*/
-				new THREE.MeshLambertMaterial({
-        			map: THREE.ImageUtils.loadTexture('snakeScales.jpg')
-      			})
+				new THREE.MeshBasicMaterial(
+					{ color:0x0c3707, wireframe: false }
+				)
 			);
 			mesh2.position.z += ecaille;
 			scene.add(mesh2);
@@ -53,12 +47,9 @@
 				new THREE.CubeGeometry(
 					ecaille,ecaille,ecaille
 				),
-				/*new THREE.MeshBasicMaterial(
-					{ color:0x0000ff, wireframe: false }
-				)*/
-				new THREE.MeshLambertMaterial({
-        			map: THREE.ImageUtils.loadTexture('snakeScales.jpg')
-      			})
+				new THREE.MeshBasicMaterial(
+					{ color:0x0c3707, wireframe: false }
+				)
 			);
 			mesh3.position.z += ecaille*2;
 			scene.add(mesh3);
@@ -74,11 +65,14 @@
 			scene.add(zone);
 
 			var bouffe = new THREE.Mesh(
-				new THREE.CubeGeometry(
-					tailleBouffe,tailleBouffe,tailleBouffe
+				new THREE.SphereGeometry(
+					tailleBouffe
 				),
-				new THREE.MeshBasicMaterial(
+				/*new THREE.MeshBasicMaterial(
 					{ color:0xff00ff, wireframe: false }
+				)*/
+				new THREE.MeshLambertMaterial(
+					{ color:0x90f030, wireframe: false /*tout ceci est du JSON*/}
 				)
 			);
 
@@ -252,6 +246,10 @@
 	    		bouffe.position.z = posZ;
 
 				scene.add(bouffe);
+	    	}
+
+	    	function bouffeEstElleMangee(positionXTete, positionYTete, positionZTete, bouffe){
+	    		
 	    	}
 
 		</script>
