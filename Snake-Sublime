@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WebGL/Three.js</title>
+		<script src="three.min.js"></script>
+		
+	</head>
+	<body>
+		<h1>Snake</h1>
+		<canvas id="3d"></canvas>
+		<script>
+			var coteZone 	= 600;
+			var distanceZ 	= 0;
+			var distanceY 	= 0;
+			var distanceX 	= 0;
+			var ecaille 	= 20;
+			var tailleBouffe 	= 20;
+			var nbMesh		= 3;
+			var nbAnimates	= 0;
+			var vitesseJeu 	= 20;
+			var nbBouffeMangee	= 0;
+			var intervallePop = 100;
+
+			var scene = new THREE.Scene();
+			var mesh1 = new THREE.Mesh(
+				new THREE.CubeGeometry(
+					ecaille,ecaille,ecaille
+				),
+				/*new THREE.MeshBasicMaterial(
+					{ color:0x0000ff/*bleu*///, wireframe: false /*tout ceci est du JSON*/}
+				//)*/
+				new THREE.MeshLambertMaterial({
+        			map: THREE.ImageUtils.loadTexture('snakeScales.jpg')
+      			})
+			);
+			scene.add(mesh1);
+
+			var mesh2 = new THREE.Mesh(
+				new THREE.CubeGeometry(
+					ecaille,ecaille,ecaille
+				),
+				/*new THREE.MeshBasicMaterial(
+					{ color:0x0000ff, wireframe: false }
+				)*/
+				new THREE.MeshLambertMaterial({
+        			map: THREE.ImageUtils.loadTexture('snakeScales.jpg')
+      			})
+			);
+			mesh2.position.z += ecaille;
+			scene.add(mesh2);
+
+			var mesh3 = new THREE.Mesh(
+				new THREE.CubeGeometry(
+					ecaille,ecaille,ecaille
+				),
+				/*new THREE.MeshBasicMaterial(
+					{ color:0x0000ff, wireframe: false }
+				)*/
+				new THREE.MeshLambertMaterial({
+        			map: THREE.ImageUtils.loadTexture('snakeScales.jpg')
+      			})
+			);
+			mesh3.position.z += ecaille*2;
+			scene.add(mesh3);
+
+			var zone = new THREE.Mesh(
+				new THREE.CubeGeometry(
+					600,600,600
+				),
+				new THREE.MeshBasicMaterial(
+					{ color:0x000000, wireframe: true}
+				)
+			);
+			scene.add(zone);
+
+			var bouffe = new THREE.Mesh(
+				new THREE.CubeGeometry(
+					tailleBouffe,tailleBouffe,tailleBouffe
+				),
+				new THREE.MeshBasicMaterial(
+					{ color:0xff00ff, wireframe: false }
+				)
+			);
+
+			//Lights
+			scene.add(new THREE.AmbientLight(0x222222));
+			var lightGLobal = new THREE.PointLight(0xffffff);
+			lightGLobal.position.y = 1000;
+			scene.add(lightGLobal);
+
+
+			//rendu
+	    	var renderer = new THREE.WebGLRenderer(
+	        	{canvas:document.getElementById("3d")}
+	    	);
+	    	var camera = new THREE.PerspectiveCamera(
+	    		75 /*fov*/, 4/3 /*ratio*/, 1 /*near*/, 10000 /*far*/
+	    	);
+	    	camera.position.set(500,500,500);
+	    	camera.lookAt(new THREE.Vector3(0,0,0));
+
+	    	renderer.setSize(800,600);
+
+	    	var snake = new Array(mesh1,mesh2,mesh3);
+			
+			document.onkeydown = keyPress;
+
+	    	var direction = "-z";
+
+	    	animate();
+	    	var mouvement = setInterval("animate()", vitesseJeu);
+
+
+	    	function animate(){
+	    		nbAnimates += 1;
+	    		popTrigger(nbAnimates);
+	    		console.log(nbAnimates);
+				avancerDansUneDirection(direction);
+				//debug();
+				//getRandomNumber()
+	    		renderer.render(scene,camera);	
+	    	}
+
+	    	function keyPress(evt){
+					if(!evt) evt = event;
+		            if (evt.keyCode == 33 /* pageUp */) {
+		                if(direction != "z")
+		                	direction = "-z";
+		            } 
+		            if (evt.keyCode == 34 /* pageDown */) {
+		            	if(direction != "-z")
+			            	direction = "z";
+		            }
+		            if (evt.keyCode == 37 /* keyLeft */) {
+		            	if(direction != "x")
+			            	direction = "-x";
+		            }
+		            if (evt.keyCode == 38 /* keyUp */) {
+		            	if(direction != "-y")
+			            	direction = "y";
+		            }
+		            if (evt.keyCode == 39 /* keyRight */) {
+		            	if(direction != "-x")
+			            	direction = "x";
+		            }
+		            if (evt.keyCode == 40 /* keyDown */) {
+		            	if(direction != "y")
+		            		direction = "-y";
+		            }
+            }
+
+
+	    	function avancerDansUneDirection(axe){
+	    		var head = snake.pop();
+				var tail = snake[0];
+				head.position.x = tail.position.x;
+				head.position.y = tail.position.y;
+				head.position.z = tail.position.z;
+
+				direction = axe;
+
+				if(axe == "x"){
+					head.position.x += ecaille;
+					distanceX += ecaille;
+					if(distanceX == (coteZone/2))
+					{
+						head.position.x = -300;
+						distanceX = head.position.x;
+					}
+				}
+				if(axe == "-x"){
+					head.position.x -= ecaille;
+					distanceX -= ecaille;
+					if(distanceX == ((coteZone/2)*-1))
+					{
+						head.position.x = 300;
+						distanceX = head.position.x;
+					}
+				}
+				if(axe == "y"){
+					head.position.y += ecaille;
+					distanceY += ecaille;
+					if(distanceY == (coteZone/2))
+					{
+						head.position.y = -300;
+						distanceY= head.position.y;
+					}
+				}
+				if(axe == "-y"){
+					head.position.y -= ecaille;
+					distanceY -= ecaille;
+					if(distanceY == ((coteZone/2)*-1))
+					{
+						head.position.y = 300;
+						distanceY = head.position.y;
+					}
+				}
+				if(axe == "z"){
+					head.position.z += ecaille;
+					distanceZ += ecaille;
+					if(distanceZ == (coteZone/2))
+					{
+						head.position.z = -300;
+						distanceZ = head.position.z;
+					}
+				}
+				if(axe == "-z"){
+					head.position.z -= ecaille;
+					distanceZ -= ecaille;
+					if(distanceZ == ((coteZone/2)*-1))
+					{
+						head.position.z = 300;
+						distanceZ = head.position.z;
+					}
+				}
+
+				snake.unshift(head);
+	    	}
+
+	    	function debug(){
+	    		console.log('------------------------');
+	    		console.log('distanceX = '+distanceX);
+				console.log('distanceY = '+distanceY);
+    			console.log('distanceZ = '+distanceZ);
+    			console.log('------------------------');
+	    	}
+
+	    	function getRandomNumber(){
+	    		var randomNumber = Math.floor(Math.random() * coteZone) - (coteZone/2);
+				randomNumberArrondi = Math.ceil(randomNumber / ecaille) *ecaille;
+				return randomNumberArrondi;
+	    	}
+
+	    	function popTrigger(temps){
+	    		if(temps == intervallePop)
+	    		{
+	    			popBouffe();
+	    			nbAnimates = 0;
+	    		}
+	    		
+	    	}
+
+	    	function popBouffe(){
+	    		scene.remove(bouffe);
+
+	    		var posX = getRandomNumber();
+	    		var posY = getRandomNumber();
+	    		var posZ = getRandomNumber();
+	    		
+	    		bouffe.position.x = posX;
+	    		bouffe.position.y = posY;
+	    		bouffe.position.z = posZ;
+
+				scene.add(bouffe);
+	    	}
+
+		</script>
+	</body>
+</html>
