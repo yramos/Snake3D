@@ -12,8 +12,11 @@
         <div id="nombreDeTours"></div>
         <div id="positionTete"></div>
         <div id="positionBouffe"></div>
+        <div>Appuyer sur - ou + pour varier la vitesse</div>
+        <div id="vitesseJeu"></div>
         <div class="separateur"></div>
 		<script>
+            var niveau = 0;
 			var coteZone 	= 200;
 			var distanceZ 	= 0;
 			var distanceY 	= 0;
@@ -22,7 +25,7 @@
 			var tailleBouffe 	= 20;
 			var nbMesh		= 3;
 			var nbAnimates	= 0;
-			var vitesseJeu 	= 100;
+			var vitesseJeu 	= 200;
 			var nbBouffeMangee	= 0;
 			var intervallePop = 100;
 
@@ -104,7 +107,7 @@
             camera.position.set(187.5,0,375);
             camera.lookAt(new THREE.Vector3(0,0,0));
 
-	    	renderer.setSize(800,600);
+	    	renderer.setSize(640,480);
 
 	    	var snake = new Array(mesh1,mesh2,mesh3);
 			
@@ -112,6 +115,7 @@
 
 	    	var direction = "-z";
 
+            document.getElementById('vitesseJeu').innerHTML = vitesseJeu;
             popBouffe();
 	    	animate();
 	    	var mouvement = setInterval("animate()", vitesseJeu);
@@ -130,31 +134,42 @@
 	    	}
 
 	    	function keyPress(evt){
-					if(!evt) evt = event;
-		            if (evt.keyCode == 33 /* pageUp */) {
-		                if(direction != "z")
-		                	direction = "-z";
-		            } 
-		            if (evt.keyCode == 34 /* pageDown */) {
-		            	if(direction != "-z")
-			            	direction = "z";
-		            }
-		            if (evt.keyCode == 37 /* keyLeft */) {
-		            	if(direction != "x")
-			            	direction = "-x";
-		            }
-		            if (evt.keyCode == 38 /* keyUp */) {
-		            	if(direction != "-y")
-			            	direction = "y";
-		            }
-		            if (evt.keyCode == 39 /* keyRight */) {
-		            	if(direction != "-x")
-			            	direction = "x";
-		            }
-		            if (evt.keyCode == 40 /* keyDown */) {
-		            	if(direction != "y")
-		            		direction = "-y";
-		            }
+                if(!evt) evt = event;
+                if (evt.keyCode == 33 /* pageUp */) {
+                    if(direction != "z")
+                        direction = "-z";
+                }
+                if (evt.keyCode == 34 /* pageDown */) {
+                    if(direction != "-z")
+                        direction = "z";
+                }
+                if (evt.keyCode == 37 /* keyLeft */) {
+                    if(direction != "x")
+                        direction = "-x";
+                }
+                if (evt.keyCode == 38 /* keyUp */) {
+                    if(direction != "-y")
+                        direction = "y";
+                }
+                if (evt.keyCode == 39 /* keyRight */) {
+                    if(direction != "-x")
+                        direction = "x";
+                }
+                if (evt.keyCode == 40 /* keyDown */) {
+                    if(direction != "y")
+                        direction = "-y";
+                }
+                if (evt.keyCode == 109 /* - */) {
+                    vitesseJeu *= 2;
+                    var mouvement = setInterval("animate()", vitesseJeu);
+                    document.getElementById('vitesseJeu').innerHTML = vitesseJeu;
+                }
+                if (evt.keyCode == 107 /* + */) {
+                    vitesseJeu *= 0.5;
+                    var mouvement = setInterval("animate()", vitesseJeu);
+                    document.getElementById('vitesseJeu').innerHTML = vitesseJeu;
+                }
+
             }
 
 
