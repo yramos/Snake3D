@@ -17,17 +17,21 @@
 			var tailleBouffe 	= 20;
 			var nbMesh		= 3;
 			var nbAnimates	= 0;
-			var vitesseJeu 	= 20;
+			var vitesseJeu 	= 200;
 			var nbBouffeMangee	= 0;
 			var intervallePop = 100;
 
 			var scene = new THREE.Scene();
+
+			var textureEcaille = THREE.ImageUtils.loadTexture('snake-skin-texture.jpg');
+			var textureBouffe = THREE.ImageUtils.loadTexture('apple-texture.jpg')
+
 			var mesh1 = new THREE.Mesh(
 				new THREE.CubeGeometry(
 					ecaille,ecaille,ecaille
 				),
 				new THREE.MeshBasicMaterial(
-					{ color:0x0c3707/*vert*/, wireframe: false /*tout ceci est du JSON*/}
+					{ map: textureEcaille/*color:0x0c3707/*vert*/, wireframe: false /*tout ceci est du JSON*/}
 				)
 			);
 			scene.add(mesh1);
@@ -37,7 +41,7 @@
 					ecaille,ecaille,ecaille
 				),
 				new THREE.MeshBasicMaterial(
-					{ color:0x0c3707, wireframe: false }
+					{ map: textureEcaille/*color:0x0c3707*/, wireframe: false }
 				)
 			);
 			mesh2.position.z += ecaille;
@@ -48,7 +52,7 @@
 					ecaille,ecaille,ecaille
 				),
 				new THREE.MeshBasicMaterial(
-					{ color:0x0c3707, wireframe: false }
+					{ map: textureEcaille /*color:0x0c3707*/, wireframe: false }
 				)
 			);
 			mesh3.position.z += ecaille*2;
@@ -72,14 +76,14 @@
 					{ color:0xff00ff, wireframe: false }
 				)*/
 				new THREE.MeshLambertMaterial(
-					{ color:0x90f030, wireframe: false /*tout ceci est du JSON*/}
+					{ map: textureBouffe /*color:0x90f030*/, wireframe: false /*tout ceci est du JSON*/}
 				)
 			);
 
 			//Lights
 			scene.add(new THREE.AmbientLight(0x222222));
 			var lightGLobal = new THREE.PointLight(0xffffff);
-			lightGLobal.position.y = 1000;
+			lightGLobal.position.z = 1000;
 			scene.add(lightGLobal);
 
 
@@ -88,9 +92,10 @@
 	        	{canvas:document.getElementById("3d")}
 	    	);
 	    	var camera = new THREE.PerspectiveCamera(
-	    		75 /*fov*/, 4/3 /*ratio*/, 1 /*near*/, 10000 /*far*/
+	    		75 /*fov*/, 4/3 /*ratio*/, 1 /*near*/, 100000 /*far*/
 	    	);
-	    	camera.position.set(500,500,500);
+	    	//camera.position.set(450,450,500);
+	    	camera.position.set(16,242,655);
 	    	camera.lookAt(new THREE.Vector3(0,0,0));
 
 	    	renderer.setSize(800,600);

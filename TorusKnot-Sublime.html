@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WebGL/Three.js</title>
+		<script src="three.min.js"></script>
+		
+	</head>
+	<body>
+		<h1>Scene 3D</h1>
+		<canvas id="3d"></canvas>
+		<script>
+			var scene = new THREE.Scene();
+			var mesh = new THREE.Mesh(
+				new THREE.TorusKnotGeometry(
+					200,80,80/*nb segments du cercle*/,10/*segment du tube*/
+				),
+				new THREE.MeshLambertMaterial(
+					{ color:0x0000ff, wireframe: false /*tout ceci est du JSON*/}
+				)
+			);
+			scene.add(mesh);
+			scene.add(new THREE.AmbientLight(0x222222));
+			
+			var lightGLobal = new THREE.PointLight(0xffffff);
+			lightGLobal.position.y = 1000;
+			scene.add(lightGLobal);
+
+			var lightCenter = new THREE.PointLight(/*0xff00ff*/0xc92835);
+			scene.add(lightCenter);
+
+
+			//rendu
+	    	var renderer = new THREE.WebGLRenderer(
+	        	{canvas:document.getElementById("3d")}
+	    	);
+	    	var camera = new THREE.PerspectiveCamera(
+	    		75 /*fov*/, 4/3 /*ratio*/, 1 /*near*/, 10000 /*far*/
+	    	);
+	    	camera.position.set(500,500,500);
+	    	camera.lookAt(new THREE.Vector3(0,0,0));
+
+	    	renderer.setSize(640,480);
+	    	/*renderer.render(scene,camera);*/
+	    	animate();
+
+	    	function animate(){
+	    		requestAnimationFrame(animate);
+	    		mesh.rotation.x += 0.01;
+	    		mesh.rotation.y += 0.02;
+	    		renderer.render(scene,camera);
+	    	}
+		</script>
+	</body>
+</html>
