@@ -26,7 +26,7 @@
       <file leaf-file-name="Snake-Sublime" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Snake-Sublime">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="63" selection-start="534" selection-end="534" vertical-scroll-proportion="0.48350397" vertical-offset="0" max-vertical-offset="4539">
+            <state line="106" column="32" selection-start="2863" selection-end="2866" vertical-scroll-proportion="0.73739743" vertical-offset="1173" max-vertical-offset="5797">
               <folding />
             </state>
           </provider>
@@ -45,6 +45,13 @@
   <component name="GitLogSettings">
     <option name="myDateState">
       <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Snake-Sublime" />
+      </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
@@ -189,16 +196,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TorusKnot-Sublime.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1003">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Snake-Sublime">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="63" selection-start="534" selection-end="534" vertical-scroll-proportion="0.48350397" vertical-offset="0" max-vertical-offset="4539">
+        <state line="106" column="32" selection-start="2863" selection-end="2866" vertical-scroll-proportion="0.73739743" vertical-offset="1173" max-vertical-offset="5797">
           <folding />
         </state>
       </provider>
