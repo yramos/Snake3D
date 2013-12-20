@@ -3,18 +3,24 @@
 	<head>
 		<title>WebGL/Three.js</title>
 		<script src="three.min.js"></script>
+        <script src="jquery-1.10.2.min.js"></script>
 		
 	</head>
 	<body>
 		<h1>Snake</h1>
 		<canvas id="3d"></canvas>
-        <div class="separateur"></div>
+        <br />
+        <input type="button" onclick="ouvrirFermerAide();" value="Ouvrir/Fermer l'aide"></button>
+        <br />
+        <div id="separateur1"></div>
         <div id="nombreDeTours"></div>
-        <div id="positionTete"></div>
-        <div id="positionBouffe"></div>
-        <div>Appuyer sur - ou + pour varier la vitesse</div>
-        <div id="vitesseJeu"></div>
-        <div class="separateur"></div>
+        <div>Appuyer sur + pour augmenter la vitesse</div>
+        <div id="vitesseJeu">Vitesse actuelle : <span id="vitesseJeuValeur"></span></div>
+        <div id="separateur2"></div>
+        <div id="aide" style="display: none">
+            <div id="positionTete"></div>
+            <div id="positionBouffe"></div>
+        </div>
 		<script>
             var niveau = 0;
 			var coteZone 	= 200;
@@ -25,7 +31,7 @@
 			var tailleBouffe 	= 20;
 			var nbMesh		= 3;
 			var nbAnimates	= 0;
-			var vitesseJeu 	= 200;
+			var vitesseJeu 	= 400;
 			var nbBouffeMangee	= 0;
 			var intervallePop = 100;
 
@@ -115,7 +121,7 @@
 
 	    	var direction = "-z";
 
-            document.getElementById('vitesseJeu').innerHTML = vitesseJeu;
+            document.getElementById('vitesseJeuValeur').innerHTML = vitesseJeu;
             popBouffe();
 	    	animate();
 	    	var mouvement = setInterval("animate()", vitesseJeu);
@@ -159,15 +165,16 @@
                     if(direction != "y")
                         direction = "-y";
                 }
-                if (evt.keyCode == 109 /* - */) {
-                    vitesseJeu *= 2;
+                //Je voulais pouvoir varier la vitesse (+ ou -), mais le code utiliser dans le bouton "-" ne fonctionne pas, j'ignore pourquoi, je l'ai donc enlevé du jeu
+                //if (evt.keyCode == 109 /* - */) {
+                    /*vitesseJeu *= 2;
                     var mouvement = setInterval("animate()", vitesseJeu);
                     document.getElementById('vitesseJeu').innerHTML = vitesseJeu;
-                }
+                }*/
                 if (evt.keyCode == 107 /* + */) {
                     vitesseJeu *= 0.5;
                     var mouvement = setInterval("animate()", vitesseJeu);
-                    document.getElementById('vitesseJeu').innerHTML = vitesseJeu;
+                    document.getElementById('vitesseJeuValeur').innerHTML = vitesseJeu;
                 }
 
             }
@@ -245,8 +252,9 @@
 	    	}
 
 	    	function debugEtAffichage(){
-	    		document.getElementsByClassName('separateur').innerHTML = '------------------------';
-                document.getElementById('nombreDeTours').innerHTML = 'Nombre d\'animations = '+nbAnimates;
+	    		document.getElementById('separateur1').innerHTML = '------------------------';
+                document.getElementById('separateur2').innerHTML = '------------------------';
+                document.getElementById('nombreDeTours').innerHTML = 'Nombre de tours = '+nbAnimates;
                 document.getElementById('positionTete').innerHTML = 'La t&ecirc;te est en position : ('+distanceX+','+distanceY+','+distanceZ+')';
                 document.getElementById('positionBouffe').innerHTML = 'La pomme est en position : ('+bouffe.position.x+','+bouffe.position.y+','+bouffe.position.z+')';
 	    	}
@@ -345,6 +353,10 @@
                 if(bouffe.position.z != head.position.z){
                     avancerDansUneDirection('-z');
                 }
+            }
+
+            function ouvrirFermerAide(){
+                $('#aide').slideToggle();
             }
 		</script>
 	</body>

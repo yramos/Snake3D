@@ -26,8 +26,10 @@
       <file leaf-file-name="Snake-Sublime" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Snake-Sublime">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="166" column="49" selection-start="4937" selection-end="4937" vertical-scroll-proportion="0.7971864" vertical-offset="2142" max-vertical-offset="6052">
-              <folding />
+            <state line="21" column="43" selection-start="741" selection-end="741" vertical-scroll-proportion="0.41852286" vertical-offset="0" max-vertical-offset="6256">
+              <folding>
+                <element signature="n#style#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -198,8 +200,10 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Snake-Sublime">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="166" column="49" selection-start="4937" selection-end="4937" vertical-scroll-proportion="0.7971864" vertical-offset="2142" max-vertical-offset="6052">
-          <folding />
+        <state line="21" column="43" selection-start="741" selection-end="741" vertical-scroll-proportion="0.41852286" vertical-offset="0" max-vertical-offset="6256">
+          <folding>
+            <element signature="n#style#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
